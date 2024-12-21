@@ -1,7 +1,8 @@
 #ifndef PERCEPTRONS_HPP
 #define PERCEPTRONS_HPP
 
-
+#include <cmath>
+#include <stdexcept>
 
 class Perceptrons
 {
@@ -52,6 +53,29 @@ public:
                 x1, x2
             )
         );
+    }
+
+    template <typename T>
+    static bool StepFunction(T x)
+    {
+        return x >= 0 ? true : false;
+    }
+
+    template <typename T>
+    static double Sigmoid(T x)
+    {
+        double expResult = std::exp(-x);
+        if (expResult == 0) {
+            throw std::out_of_range("cannot be divide zero");
+        }
+
+        return (1 / ( 1 + expResult));
+    }
+
+    template <typename T>
+    static double Relu(T x)
+    {
+        return x >= 0 ? x : 0;
     }
 };
 
